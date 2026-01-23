@@ -1,5 +1,5 @@
 {
-	description = "driver";
+	description = "Spaceblimp firmware";
 
 	inputs = {
 		nixpkgs.url = "nixpkgs/nixos-25.11-small";
