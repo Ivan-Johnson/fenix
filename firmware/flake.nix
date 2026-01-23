@@ -19,17 +19,15 @@
 			pkgs = import nixpkgs { system = "x86_64-linux"; };
 			rustPlatform = pkgs.rustPlatform;
 			driver = rustPlatform.buildRustPackage {
-				pname = "driver";
+				pname = "foo";
 
 				version = "0.1.0";
 
 				src = ./.;
 
-				buildInputs = [ pkgs.makeWrapper ];
+				buildInputs = [ ];
 
-				checkFlags = [
-					#"--skip=foo::bar::..."
-				];
+				checkFlags = [ ];
 
 				cargoLock.lockFile = ./Cargo.lock;
 			};
@@ -54,28 +52,6 @@
 				RAVEDUDE_PORT = "/dev/ttyACM0";
 			};
 
-			# temporarily changed to GNU's Hello World package
 			packages.x86_64-linux.default = pkgs.hello;
-
-			nixos_options =
-				{
-					config,
-					lib,
-					pkgs,
-					...
-				}:
-
-				let
-					cfg = config.programs.driver;
-				in
-				{
-					options = {
-						programs.driver = {
-							enable = lib.mkEnableOption "driver";
-						};
-					};
-
-					config = lib.mkMerge [ (lib.mkIf cfg.enable { home.packages = [ driver ]; }) ];
-				};
 		};
 }
