@@ -35,14 +35,6 @@
 		{
 			devShells.x86_64-linux.default = pkgs.mkShell {
 				buildInputs = [
-					pkgs.arduino-cli
-					pkgs.arduino-ide
-					pkgs.avrdude
-					pkgs.blender
-					pkgs.pkgsCross.avr.buildPackages.gcc
-					(pkgs.python3.withPackages (python-pkgs: with python-pkgs; [ pyserial ]))
-					pkgs.minicom
-					pkgs.ravedude
 					(rust-nix.packages.x86_64-linux.fromToolchainFile {
 						file = ./rust-toolchain.toml;
 						# sha256 = "sha256-z8J/GH7znPPg9kKvPirKcBeXqHikj1M7KB+anwsDx0M=";
