@@ -1,0 +1,2 @@
+open_files.txt
+fenix/firmware/fenix-rust/flake.nix
