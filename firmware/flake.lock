@@ -18,7 +18,7 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
-        "rust-nix": "rust-nix"
+        "rustnix": "rustnix"
       }
     },
     "rust-analyzer-src": {
@@ -38,7 +38,7 @@
         "type": "github"
       }
     },
-    "rust-nix": {
+    "rustnix": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"

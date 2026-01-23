@@ -3,7 +3,7 @@
 
 	inputs = {
 		nixpkgs.url = "nixpkgs/nixos-25.11-small";
-		rust-nix = {
+		rustnix = {
 			url = "github:nix-community/fenix";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
@@ -13,30 +13,19 @@
 		{
 			self,
 			nixpkgs,
-			rust-nix,
+			rustnix,
 		}:
 		let
 			pkgs = import nixpkgs { system = "x86_64-linux"; };
 			rustPlatform = pkgs.rustPlatform;
-			driver = rustPlatform.buildRustPackage {
-				pname = "foo";
-
-				version = "0.1.0";
-
-				src = ./.;
-
-				buildInputs = [ ];
-
-				checkFlags = [ ];
-
-				cargoLock.lockFile = ./Cargo.lock;
-			};
 		in
 		let
 			devshell = pkgs.mkShell {
 				buildInputs = [
-					pkgs.rustc
-					pkgs.cargo
+					(rustnix.packages.x86_64-linux.fromToolchainFile {
+						file = ./rust-toolchain.toml;
+						sha256 = "sha256-cQl292Ia+Crg9ps29Pv5ciufXd0b/HF7770/bOEDv+k=";
+					})
 				];
 			};
 
