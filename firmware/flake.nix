@@ -35,10 +35,8 @@
 		let
 			devshell = pkgs.mkShell {
 				buildInputs = [
-					(rust-nix.packages.x86_64-linux.fromToolchainFile {
-						file = ./rust-toolchain.toml;
-						sha256 = "sha256-cQl292Ia+Crg9ps29Pv5ciufXd0b/HF7770/bOEDv+k=";
-					})
+					pkgs.rustc
+					pkgs.cargo
 				];
 			};
 
