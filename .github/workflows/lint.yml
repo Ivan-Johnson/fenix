@@ -29,26 +29,8 @@ jobs:
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          persist-credentials: false
-          sparse-checkout: .github/actions
-      - name: Checkout the merge commit
-        uses: ./.github/actions/checkout
-        with:
-          merged-as-untrusted-at: ${{ inputs.mergedSha }}
-
-      - uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31
-
-      # TODO: Figure out how to best enable caching for the treefmt job. Cachix won't work well,
-      # because the cache would be invalidated on every commit - treefmt checks every file.
-      # Maybe we can cache treefmt's eval-cache somehow.
-
       - name: Check that files are formatted
         run: |
-          # Note that it's fine to run this on untrusted code because:
-          # - There's no secrets accessible here
-          # - The build is sandboxed
           if ! nix-build nixpkgs/untrusted/ci --arg nixpkgs ./nixpkgs/untrusted-pinned -A fmt.check; then
             echo "Some files are not properly formatted"
             echo "Please format them by going to the Nixpkgs root directory and running one of:"
