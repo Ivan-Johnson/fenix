@@ -12,7 +12,7 @@
 		in
 		let
 			devshell = pkgs.mkShell {
-				buildInputs = [ pkgs.espup ];
+				buildInputs = [ pkgs.rustup pkgs.espup ];
 				# shellHook = ''
 				# 	echo TODO run commands from SETUP.md?
 				# '';
