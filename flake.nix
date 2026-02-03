@@ -14,7 +14,7 @@
       devshell = pkgs.mkShell {
         buildInputs = [
           pkgs.rustup
-              pkgs.espup
+                 pkgs.espup
         ];
         shellHook = ''
           if ! [ -f espidf.sh ]; then
