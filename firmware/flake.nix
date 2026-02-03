@@ -15,14 +15,10 @@
 				buildInputs = [
 					pkgs.rustup
 					pkgs.espup
-					pkgs.espflash
-					pkgs.fastly
+					# pkgs.espflash
+					# pkgs.fastly
 				];
-				shellHook = ''
-									 	echo TODO run commands from SETUP.md?
-									 espup install
-									 source?
-									# '';
+				shellHook = ''echo TODO espup install'';
 			};
 
 		in
