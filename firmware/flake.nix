@@ -6,21 +6,16 @@
 	};
 
 	outputs =
-		{
-			self,
-			nixpkgs,
-		}:
+		{ self, nixpkgs }:
 		let
 			pkgs = import nixpkgs { system = "x86_64-linux"; };
 		in
 		let
 			devshell = pkgs.mkShell {
-				buildInputs = [
-					nixpkgs.espup
-				];
-  shellHook = ''
-    echo TODO run commands from SETUP.md?
-  '';
+				buildInputs = [ nixpkgs.espup ];
+				shellHook = ''
+					echo TODO run commands from SETUP.md?
+				'';
 			};
 
 		in
