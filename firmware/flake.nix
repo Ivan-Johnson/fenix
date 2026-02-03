@@ -12,9 +12,16 @@
 		in
 		let
 			devshell = pkgs.mkShell {
-				buildInputs = [ pkgs.rustup pkgs.espup ];
+				buildInputs = [
+					pkgs.rustup
+					pkgs.espup
+					pkgs.espflash
+					pkgs.fastly
+				];
 				# shellHook = ''
 				# 	echo TODO run commands from SETUP.md?
+				# espup install
+				# source?
 				# '';
 			};
 
