@@ -12,10 +12,10 @@
 		in
 		let
 			devshell = pkgs.mkShell {
-				buildInputs = [ nixpkgs.espup ];
-				shellHook = ''
-					echo TODO run commands from SETUP.md?
-				'';
+				buildInputs = [ pkgs.espup ];
+				# shellHook = ''
+				# 	echo TODO run commands from SETUP.md?
+				# '';
 			};
 
 		in
