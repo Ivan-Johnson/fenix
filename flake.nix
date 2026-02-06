@@ -3,19 +3,26 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-25.11-small";
+    # This input uses the commit from this PR:
+    # https://github.com/NixOS/nixpkgs/pull/477552
+    #
+    # After that PR merges, we can switch to using the latest version
+    # of nixpkgs
+    nixpkgs-tmp.url = "git+https://github.com/NixOS/nixpkgs?rev=e3d47242b5a84a6e87316874d1e00888ff69993b";
   };
 
   outputs =
-    { self, nixpkgs }:
+    { self, nixpkgs, nixpkgs-tmp }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
+      pkgs-tmp = import nixpkgs-tmp { system = "x86_64-linux"; };
     in
     let
       devshell = pkgs.mkShell {
         buildInputs = [
           pkgs.rustup
-          pkgs.espup
           pkgs.espflash
+          pkgs-tmp.espup
         ];
         shellHook = ''
           if ! [ -f espidf.sh ]; then
