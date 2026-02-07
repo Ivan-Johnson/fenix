@@ -1,0 +1,43 @@
+# Based on
+# https://raw.githubusercontent.com/NixOS/nixpkgs/ac7c30e2ca1f70e82222e1d95a0221c1edee9228/.github/workflows/lint.yml
+
+name: Lint
+
+on:
+  workflow_call:
+    inputs:
+      mergedSha:
+        required: true
+        type: string
+      targetSha:
+        required: true
+        type: string
+    secrets:
+      # Should only be provided in the merge queue, not in pull requests,
+      # where we're evaluating untrusted code.
+      CACHIX_AUTH_TOKEN_GHA:
+        required: false
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  treefmt:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 10
+    steps:
+      - name: Check that files are formatted
+        run: |
+          if ! nix-build nixpkgs/untrusted/ci --arg nixpkgs ./nixpkgs/untrusted-pinned -A fmt.check; then
+            echo "Some files are not properly formatted"
+            echo "Please format them by going to the Nixpkgs root directory and running one of:"
+            echo "  nix-shell --run treefmt"
+            echo "  nix develop --command treefmt"
+            echo "  nix fmt"
+            echo "Make sure your branch is up to date with master; rebase if not."
+            echo "If you're having trouble, please ping @NixOS/nix-formatting"
+            exit 1
+          fi
